@@ -71,7 +71,7 @@ var checkLeftDiagonal = (id, player) => {
   if (!document.getElementById((Number(id) + 2).toString()) || !document.getElementById((Number(id) + 4).toString())) {
     return;
   }
-  if (document.getElementById((Number(id) + 2).toString()).innerHTML.includes(player) && document.getElementById((Number(id) + 4).toString()).innerHTML.includes(player)) {
+  if (document.getElementById(id).id === '3' && document.getElementById((Number(id) + 2).toString()).innerHTML.includes(player) && document.getElementById((Number(id) + 4).toString()).innerHTML.includes(player)) {
     return true;
   }
 }

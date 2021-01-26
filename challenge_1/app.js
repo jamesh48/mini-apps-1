@@ -1,14 +1,11 @@
 var handleClick = (e, item) => {
   e.preventDefault();
-  if (countMoves()) {
-    document.getElementById(e.target.id).innerHTML = '|__X__|';
-  } else {
-    document.getElementById(e.target.id).innerHTML = '|__O__|';
-  }
-  detectWin();
+  countMoves(e);
+  setTimeout(() => {detectWin()}, 1);
 }
 
 var detectWin = () => {
+  console.log('detectWin')
   var boxes = document.getElementsByClassName('boxes');
   Array.from(boxes).forEach(box =>{
       if (box.innerHTML.includes('X')) {
@@ -17,7 +14,7 @@ var detectWin = () => {
         var xRightDiagonal = checkRightDiagonal(box.id, 'X');
         var xLeftDiagonal = checkLeftDiagonal(box.id, 'X');
         if (xHorizontal || xVertical || xRightDiagonal || xLeftDiagonal) {
-          console.log('X Wins!');
+          // console.log('X Wins!');
           alert('X Wins the Game!');
         }
       } else if (box.innerHTML.includes('O')) {
@@ -26,17 +23,24 @@ var detectWin = () => {
         var oRightDiagonal = checkRightDiagonal(box.id, 'O');
         var oLeftDiagonal = checkLeftDiagonal(box.id, 'O');
         if (oHorizontal || oVertical || oRightDiagonal || oLeftDiagonal) {
-          console.log('O Wins!');
+          // console.log('O Wins!');
           alert('O Wins the Game!');
         }
       }
     });
 }
 
-var countMoves = () => {
+var countMoves = (e) => {
+  console.log('e-> ' + e)
   var boxes = document.getElementsByClassName('boxes');
   let xLength = Array.from(boxes).filter(item => item.innerHTML.includes('X') || item.innerHTML.includes('O')).length;
-  return xLength % 2 === 0 ? true : false;
+
+  if (xLength % 2 === 0) {
+    document.getElementById(e.target.id).innerHTML = 'X';
+  } else {
+    document.getElementById(e.target.id).innerHTML = '|__O__|';
+  }
+  return;
 }
 
 var checkHorizontal = (id, player) => {

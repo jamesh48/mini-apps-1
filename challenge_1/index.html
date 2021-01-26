@@ -1,36 +1,61 @@
 
 <!DOCTYPE html>
   <script src="app.js"></script>
+  <script>
+
+
+  </script>
 <html>
   <head>
     <Title>Tic-Tac-Toe</Title>
     <link rel="stylesheet" href="./styles/styles.css">
   </head>
-  <body>
-    <div id = 'board' >
+  <body onload= "
+  addEventListeners();
+  adjustBoardWidth();
+  ">
 
-
+    <div onload= "" id = 'board' >
       <div id = 'rowone'>
-        <span class ="boxes" id='1' onClick="handleClick(event)"></span>
-        <span class ="boxes" id='2' onClick="handleClick(event)"></span>
-        <span class ="boxes" id='3' onClick="handleClick(event)"></span>
+        <span class ="boxes" id='1'></span>
+        <span class ="boxes" id='2'></span>
+        <span class ="boxes" id='3'></span>
       </div>
       <div id='rowtwo'>
-        <span class ="boxes" id='4' onClick="handleClick(event)"></span></span>
-        <span class ="boxes" id='5' onClick="handleClick(event)"></span>
-        <span class ="boxes" id='6' onClick="handleClick(event) "></span>
+        <span class ="boxes" id='4'></span>
+        <span class ="boxes" id='5'></span>
+        <span class ="boxes" id='6'></span>
       </div>
       <div id='rowthree'>
-        <span class ="boxes" id='7' onClick="handleClick(event)"></span>
-        <span class ="boxes" id='8' onClick="handleClick(event)"></span>
-        <span class ="boxes" id='9' onClick="handleClick(event)"></span>
+        <span class ="boxes" id='7'></span>
+        <span class ="boxes" id='8'></span>
+        <span class ="boxes" id='9'></span>
       </div>
-
     </div>
+
+    <form>
+      <input id ='new-game-button' type='button' value='New Game!'></input>
+    </form>
+
+    <div id ='playernames'>
+        <span>
+          <!-- <legend>hello</legend> -->
+          <form id ="enter-players">
+            <input id = 'p1' type='text' placeholder='player one'></input>
+            <input id = 'p2' type='text' placeholder='player two'></input>
+            <button type='submit' value='Submit' Hidden>Submit Form</button>
+          </form>
+        </span>
+
+        <!-- <span>
+          <form>
+            <input id = 'p1' type='text' placeholder='player one'></input>
+          </form>
+        </span> -->
+    </div>
+
   </body>
 
   <script>
-    var boardWidth = document.getElementById('1').clientWidth;
-    document.getElementById('board').style.width = ((boardWidth * 3 + 6) + 'px');
   </script>
 </html>

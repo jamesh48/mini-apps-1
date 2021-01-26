@@ -121,6 +121,10 @@ table {
   grid-area: boxnine;
 }
 
+#playernames {
+  margin-top: 20px;
+}
+
 /* .outerbox{
   color: red;
 } */

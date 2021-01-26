@@ -1,84 +1,149 @@
-var handleClick = (e, item) => {
-  e.preventDefault();
-  countMoves(e);
-  setTimeout(() => {detectWin()}, 1);
-}
+const gamePlayMethods = {
+  hasAlreadyWon: false,
 
-var detectWin = () => {
-  console.log('detectWin')
-  var boxes = document.getElementsByClassName('boxes');
-  Array.from(boxes).forEach(box =>{
-      if (box.innerHTML.includes('X')) {
-        var xHorizontal = checkHorizontal(box.id, 'X');
-        var xVertical = checkVertical(box.id, 'X');
-        var xRightDiagonal = checkRightDiagonal(box.id, 'X');
-        var xLeftDiagonal = checkLeftDiagonal(box.id, 'X');
-        if (xHorizontal || xVertical || xRightDiagonal || xLeftDiagonal) {
-          // console.log('X Wins!');
-          alert('X Wins the Game!');
+  handleUserEntry: (e) => {
+    e.preventDefault();
+    if (gamePlayMethods.hasAlreadyWon) {
+      return;
+    }
+    var player = gamePlayMethods.countMoves(e);
+    setTimeout(() => {gamePlayMethods.detectWin(player)}, 1);
+  },
+
+  detectWin: (player) => {
+    var boxes = document.getElementsByClassName('boxes');
+    Array.from(boxes).forEach(box => {
+      if (box.innerHTML.includes(player)) {
+        var horizontalWin, verticalWin, rightDiagonalWin, leftDiagonalWin = false;
+
+        if (box.id === '1' || box.id === '4' || box.id === '7') {
+          horizontalWin = detectWinners.checkHorizontal(box.id, player);
         }
-      } else if (box.innerHTML.includes('O')) {
-        var oHorizontal = checkHorizontal(box.id, 'O');
-        var oVertical = checkVertical(box.id, 'O');
-        var oRightDiagonal = checkRightDiagonal(box.id, 'O');
-        var oLeftDiagonal = checkLeftDiagonal(box.id, 'O');
-        if (oHorizontal || oVertical || oRightDiagonal || oLeftDiagonal) {
-          // console.log('O Wins!');
-          alert('O Wins the Game!');
+        if (box.id === '1' || box.id === '2' || box.id === '3') {
+          verticalWin = detectWinners.checkVertical(box.id, player);
+        }
+        if (box.id === '1') {
+          rightDiagonalWin = detectWinners.checkRightDiagonal(box.id, player);
+        }
+        if (box.id === '3') {
+          leftDiagonalWin = detectWinners.checkLeftDiagonal(box.id, player);
+        }
+        if (horizontalWin || verticalWin|| rightDiagonalWin || leftDiagonalWin) {
+          gamePlayMethods.hasAlreadyWon = true;
+          alert(player + ' Wins the Game!');
         }
       }
+    })
+  },
+
+  countMoves: (e) => {
+    //Opponents moves cannot be overwritten...
+    if (document.getElementById(e.target.id).innerHTML !== '') {
+      return;
+    }
+    var boxes = document.getElementsByClassName('boxes');
+    let xLength = Array.from(boxes).filter(item => item.innerHTML.includes('X') || item.innerHTML.includes('O')).length;
+    if (xLength % 2 === 0) {
+      document.getElementById(e.target.id).innerHTML = 'X';
+      return 'X';
+    } else {
+      document.getElementById(e.target.id).innerHTML = 'O';
+      return 'O';
+    }
+    return;
+  }
+}
+
+const detectWinners= {
+  checkHorizontal: (id, player) => {
+    var secondBox = document.getElementById((Number(id) + 1).toString()).innerHTML;
+    var thirdBox = document.getElementById((Number(id) + 2).toString()).innerHTML;
+
+    if ((secondBox !== '' && thirdBox !== '') && (secondBox.includes(player) && thirdBox.includes(player))) {
+      return true;
+    }
+  },
+
+  checkVertical: (id, player) => {
+    var secondBox = document.getElementById((Number(id) + 3).toString()).innerHTML;
+    var thirdBox = document.getElementById((Number(id) + 6).toString()).innerHTML;
+
+    if ((secondBox !== '' || thirdBox !== '') && (secondBox.includes(player) && thirdBox.includes(player))) {
+      return true;
+    }
+  },
+
+  checkRightDiagonal: (id, player) => {
+    var secondBox = document.getElementById((Number(id) + 4).toString()).innerHTML;
+    var thirdBox = document.getElementById((Number(id) + 8).toString()).innerHTML;
+
+    if ((secondBox !== '' || thirdBox !== '') && (secondBox.includes(player) && thirdBox.includes(player))) {
+      return true;
+    }
+  },
+
+  checkLeftDiagonal: (id, player) => {
+    var secondBox = document.getElementById((Number(id) + 2).toString()).innerHTML;
+    var thirdBox = document.getElementById((Number(id) + 4).toString()).innerHTML;
+
+    if ((secondBox !== '' || thirdBox !== '') && (secondBox.includes(player) && thirdBox.includes(player))) {
+      return true;
+    }
+  }
+}
+
+
+
+var handlePlayerNameEntry = (e) => {
+  e.preventDefault();
+  console.log(event.target['0'].value);
+  console.log(event.target['1'].value);
+}
+
+
+
+const gameListeners = {
+  playerMoves: () => {
+    const boxes = document.querySelectorAll('.boxes');
+    boxes.forEach(box => {
+      box.addEventListener('click', event => {
+       gamePlayMethods.handleUserEntry(event);
+      })
+    })
+  },
+  refreshGame: () => {
+    var newGameButton = document.getElementById('new-game-button');
+    newGameButton.addEventListener('click', event => {
+        location.reload();
     });
-}
-
-var countMoves = (e) => {
-  console.log('e-> ' + e)
-  var boxes = document.getElementsByClassName('boxes');
-  let xLength = Array.from(boxes).filter(item => item.innerHTML.includes('X') || item.innerHTML.includes('O')).length;
-
-  if (xLength % 2 === 0) {
-    document.getElementById(e.target.id).innerHTML = 'X';
-  } else {
-    document.getElementById(e.target.id).innerHTML = '|__O__|';
-  }
-  return;
-}
-
-var checkHorizontal = (id, player) => {
-  if (!document.getElementById((Number(id) + 1).toString()) || !document.getElementById((Number(id) + 2).toString())) {
-    return;
-  }
-
-  if (document.getElementById((Number(id) + 1).toString()).innerHTML.includes(player) && document.getElementById((Number(id) + 2).toString()).innerHTML.includes(player)) {
-    return true;
+  },
+  enterPlayers: () => {
+      const players = document.getElementById('enter-players');
+    players.addEventListener('submit', event => {
+      handlePlayerNameEntry(event);
+    });
   }
 }
 
-var checkVertical = (id, player) => {
-  if (!document.getElementById((Number(id) + 3).toString()) || !document.getElementById((Number(id) + 6).toString())) {
-    return;
-  }
-  if (document.getElementById((Number(id) + 3).toString()).innerHTML.includes(player) && document.getElementById((Number(id) + 6).toString()).innerHTML.includes(player)) {
-    return true;
-  }
+var adjustBoardWidth = () => {
+  var boardWidth = document.getElementById('1').clientWidth;
+  document.getElementById('board').style.width = ((boardWidth * 3 + 6) + 'px');
+  document.getElementById('new-game-button').style.width = ((boardWidth * 3 + 6) + 'px');
 }
 
-var checkRightDiagonal = (id, player) => {
-  if (!document.getElementById((Number(id) + 4).toString()) || !document.getElementById((Number(id) + 8).toString())) {
-    return;
-  }
-  if (document.getElementById((Number(id) + 4).toString()).innerHTML.includes(player) && document.getElementById((Number(id) + 8).toString()).innerHTML.includes(player)) {
-    return true;
-  }
+const addEventListeners = () => {
+  Object.values(gameListeners).forEach((listener) => {
+    listener();
+  });
+
+
+  // const enterPlayers = document.getElementById('enter-players');
+  //   enterPlayers.addEventListener('submit', event => {
+  //     handlePlayerEntry(event);
+  // });
 }
 
-var checkLeftDiagonal = (id, player) => {
-  if (!document.getElementById((Number(id) + 2).toString()) || !document.getElementById((Number(id) + 4).toString())) {
-    return;
-  }
-  if (document.getElementById(id).id === '3' && document.getElementById((Number(id) + 2).toString()).innerHTML.includes(player) && document.getElementById((Number(id) + 4).toString()).innerHTML.includes(player)) {
-    return true;
-  }
-}
+
 
 // vertical
 //1,4,7

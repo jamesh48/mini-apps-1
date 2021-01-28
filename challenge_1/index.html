@@ -1,61 +1,67 @@
-
 <!DOCTYPE html>
-  <script src="app.js"></script>
-  <script>
+<script src="app.js"></script>
+<script>
 
 
-  </script>
+</script>
 <html>
-  <head>
-    <Title>Tic-Tac-Toe</Title>
-    <link rel="stylesheet" href="./styles/styles.css">
-  </head>
-  <body onload= "
+
+<head>
+  <Title>Tic-Tac-Toe</Title>
+  <link rel="stylesheet" href="./styles/styles.css">
+</head>
+
+<body onload="
   addEventListeners();
   adjustBoardWidth();
   ">
 
-    <div onload= "" id = 'board' >
-      <div id = 'rowone'>
-        <span class ="boxes" id='1'></span>
-        <span class ="boxes" id='2'></span>
-        <span class ="boxes" id='3'></span>
-      </div>
-      <div id='rowtwo'>
-        <span class ="boxes" id='4'></span>
-        <span class ="boxes" id='5'></span>
-        <span class ="boxes" id='6'></span>
-      </div>
-      <div id='rowthree'>
-        <span class ="boxes" id='7'></span>
-        <span class ="boxes" id='8'></span>
-        <span class ="boxes" id='9'></span>
-      </div>
-    </div>
+  <div id='player-headers'>
+    <span class='player-name-headers' id='p1-name-header'>X Player
+      <h1 class='player-name-tally' id='p-x-tally'>0</h1>
+    </span>
+    <span class='player-name-headers' id='p2-name-header'>O Player
+      <p class='player-name-tally' id='p-o-tally'>0</p>
+    </span>
+  </div>
 
-    <form>
-      <input id ='new-game-button' type='button' value='New Game!'></input>
+
+  <div id='board'>
+    <div id='rowone'>
+      <span class="boxes" id='1'></span>
+      <span class="boxes" id='2'></span>
+      <span class="boxes" id='3'></span>
+    </div>
+    <div id='rowtwo'>
+      <span class="boxes" id='4'></span>
+      <span class="boxes" id='5'></span>
+      <span class="boxes" id='6'></span>
+    </div>
+    <div id='rowthree'>
+      <span class="boxes" id='7'></span>
+      <span class="boxes" id='8'></span>
+      <span class="boxes" id='9'></span>
+    </div>
+  </div>
+
+  <form>
+    <input id='new-game-button' type='button' value='New Game!'></input>
+  </form>
+
+  <span id='player-name-entry'>
+    <!-- <legend id='enter-your-players'>Enter Your Players!</legend> -->
+    <form id="enter-players">
+      <input class='player-name-input' id='p1' type='text' placeholder='X Player'></input>
+      <input class='player-name-input' id='p2' type='text' placeholder='O Player'></input>
+      <input class='player-name-input'id='board-size' type='text' placeholder='Board Width'></input>
+      <button type='submit' value='Submit' Hidden>Submit Form</button>
     </form>
+  </span>
 
-    <div id ='playernames'>
-        <span>
-          <!-- <legend>hello</legend> -->
-          <form id ="enter-players">
-            <input id = 'p1' type='text' placeholder='player one'></input>
-            <input id = 'p2' type='text' placeholder='player two'></input>
-            <button type='submit' value='Submit' Hidden>Submit Form</button>
-          </form>
-        </span>
 
-        <!-- <span>
-          <form>
-            <input id = 'p1' type='text' placeholder='player one'></input>
-          </form>
-        </span> -->
-    </div>
+</body>
 
-  </body>
+<script>
+</script>
 
-  <script>
-  </script>
 </html>

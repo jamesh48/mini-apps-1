@@ -1,13 +1,46 @@
-const gamePlayMethods = {
+const gamePlayState = {
   hasAlreadyWon: false,
-
+  xPlayerWinCount: 0,
+  oPlayerWinCount: 0,
+  xHasFirstMove: true
+}
+const gamePlayMethods = {
   handleUserEntry: (e) => {
     e.preventDefault();
-    if (gamePlayMethods.hasAlreadyWon) {
+    if (gamePlayState.hasAlreadyWon) {
       return;
     }
     var player = gamePlayMethods.countMoves(e);
-    setTimeout(() => {gamePlayMethods.detectWin(player)}, 1);
+
+    setTimeout(() => { gamePlayMethods.detectWin(player) }, 1);
+  },
+
+  countMoves: (e) => {
+    //Opponents moves cannot be overwritten...
+    if (document.getElementById(e.target.id).innerHTML !== '') {
+      return;
+    }
+    var boxes = document.getElementsByClassName('boxes');
+    let xLength = Array.from(boxes).filter(item => item.innerHTML.includes('X') || item.innerHTML.includes('O')).length;
+
+    if (gamePlayState.xHasFirstMove === false) {
+      if (xLength % 2 === 0) {
+        document.getElementById(e.target.id).innerHTML = 'O';
+        return 'O';
+      } else {
+        document.getElementById(e.target.id).innerHTML = 'X';
+        return 'X';
+      }
+    } else {
+      if (xLength % 2 === 0) {
+        document.getElementById(e.target.id).innerHTML = 'X';
+        return 'X';
+      } else {
+        document.getElementById(e.target.id).innerHTML = 'O';
+        return 'O';
+      }
+    }
+    return;
   },
 
   detectWin: (player) => {
@@ -28,33 +61,38 @@ const gamePlayMethods = {
         if (box.id === '3') {
           leftDiagonalWin = detectWinners.checkLeftDiagonal(box.id, player);
         }
-        if (horizontalWin || verticalWin|| rightDiagonalWin || leftDiagonalWin) {
-          gamePlayMethods.hasAlreadyWon = true;
-          alert(player + ' Wins the Game!');
+        if (horizontalWin || verticalWin || rightDiagonalWin || leftDiagonalWin) {
+          gamePlayState.hasAlreadyWon = true;
+          // alert(player + ' Wins the Game!');
+          gamePlayMethods.annouceWinner(player);
         }
       }
     })
   },
 
-  countMoves: (e) => {
-    //Opponents moves cannot be overwritten...
-    if (document.getElementById(e.target.id).innerHTML !== '') {
-      return;
-    }
-    var boxes = document.getElementsByClassName('boxes');
-    let xLength = Array.from(boxes).filter(item => item.innerHTML.includes('X') || item.innerHTML.includes('O')).length;
-    if (xLength % 2 === 0) {
-      document.getElementById(e.target.id).innerHTML = 'X';
-      return 'X';
-    } else {
-      document.getElementById(e.target.id).innerHTML = 'O';
-      return 'O';
-    }
-    return;
+  annouceWinner: (player) => {
+    player === 'X' ? alert(`${(nameEntry.xPlayer || 'X')} wins the Game!`) : alert(`${(nameEntry.oPlayer || 'O')} wins the Game!`);
+    gamePlayMethods.updateScoreBoard(player);
+  },
+
+  updateScoreBoard: (p) => {
+    var winner = document.getElementById(`p-${p.toLowerCase()}-tally`);
+    p === 'X' ? gamePlayState.xPlayerWinCount += 1 : gamePlayState.oPlayerWinCount += 1;
+    p === 'X' ? winner.innerHTML = gamePlayState.xPlayerWinCount : winner.innerHTML = gamePlayState.oPlayerWinCount;
+    p === 'X' ? gamePlayState.xHasFirstMove = true : gamePlayState.xHasFirstMove = false;
+    gamePlayMethods.refreshBoard();
+  },
+
+  refreshBoard: () => {
+    gamePlayState.hasAlreadyWon = false;
+    document.querySelectorAll('.boxes').forEach(box => {
+      box.innerHTML = '';
+    })
   }
+
 }
 
-const detectWinners= {
+const detectWinners = {
   checkHorizontal: (id, player) => {
     var secondBox = document.getElementById((Number(id) + 1).toString()).innerHTML;
     var thirdBox = document.getElementById((Number(id) + 2).toString()).innerHTML;
@@ -92,13 +130,30 @@ const detectWinners= {
   }
 }
 
+const nameEntry = {
+  xPlayer: undefined,
+  oPlayer: undefined,
+
+  handlePlayerNameEntry: (e) => {
+    e.preventDefault();
+    nameEntry.xPlayer = event.target['0'].value || 'X Player';
+    nameEntry.oPlayer = event.target['1'].value || 'O Player';
+
+    document.getElementById('p1-name-header').childNodes[0].nodeValue = nameEntry.xPlayer + ' ';
+
+    document.getElementById('p2-name-header').childNodes[0].nodeValue = nameEntry.oPlayer + ' ';
 
 
-var handlePlayerNameEntry = (e) => {
-  e.preventDefault();
-  console.log(event.target['0'].value);
-  console.log(event.target['1'].value);
+    nameEntry.disableInputs();
+  },
+
+  disableInputs: () => {
+    document.querySelectorAll('.player-name-input').forEach(input => {
+      input.disabled = true;
+    })
+  }
 }
+
 
 
 
@@ -107,28 +162,43 @@ const gameListeners = {
     const boxes = document.querySelectorAll('.boxes');
     boxes.forEach(box => {
       box.addEventListener('click', event => {
-       gamePlayMethods.handleUserEntry(event);
+        gamePlayMethods.handleUserEntry(event);
       })
     })
   },
-  refreshGame: () => {
+  refreshGameListener: () => {
     var newGameButton = document.getElementById('new-game-button');
     newGameButton.addEventListener('click', event => {
-        location.reload();
+      location.reload();
     });
   },
   enterPlayers: () => {
-      const players = document.getElementById('enter-players');
+    const players = document.getElementById('enter-players');
     players.addEventListener('submit', event => {
-      handlePlayerNameEntry(event);
+      nameEntry.handlePlayerNameEntry(event);
     });
   }
+}
+
+var updateBoardWidth = (event) => {
+
 }
 
 var adjustBoardWidth = () => {
   var boardWidth = document.getElementById('1').clientWidth;
   document.getElementById('board').style.width = ((boardWidth * 3 + 6) + 'px');
-  document.getElementById('new-game-button').style.width = ((boardWidth * 3 + 6) + 'px');
+
+  document.querySelectorAll('.boxes').forEach((box) => {
+    box.style.height = boardWidth + 'px';
+    box.style.width = boardWidth + 'px';
+    box.style.lineHeight = boardWidth + 'px';
+  })
+
+  document.getElementById('new-game-button').style.width = ((boardWidth * 3 + 8) + 'px');
+
+  document.getElementById('player-headers').style.width = ((boardWidth * 3 + 8) + 'px');
+
+  document.getElementById('enter-players').style.width = ((boardWidth * 3 + 8) + 'px');
 }
 
 const addEventListeners = () => {

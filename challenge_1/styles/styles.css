@@ -50,7 +50,8 @@ table {
   grid-template-areas: "rowone"
                        "rowtwo"
                        "rowthree";
-  max-width: 200px;
+  width: 400px;
+  height: 400px;
   border: 1px solid black;
 }
 
@@ -58,19 +59,26 @@ table {
   display: inline-block;
   border: 1px solid black;
   text-align: center;
-  line-height: 50px;
+  /* These need to be set in the loadBoard */
+  /* line-height: 133.3px;
+  width: 133.3px;
+  height: 133.3px; */
+}
+
+#rowone, #rowtwo, #rowthree {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto;
 }
 
 #rowone {
   grid-area: rowone;
-  display: grid;
   grid-template-areas: "boxone boxtwo boxthree";
-  grid-template-columns: 50px 50px 50px;
-  grid-template-rows: 50px;
 }
 
 #1 {
   grid-area: boxone;
+  overflow: visible;
 }
 
 #2 {
@@ -83,10 +91,7 @@ table {
 
 #rowtwo {
   grid-area: rowtwo;
-  display: grid;
   grid-template-areas: "boxfour boxfive boxsix";
-  grid-template-columns: 50px 50px 50px;
-  grid-template-rows: 50px;
 }
 
 #4 {
@@ -103,10 +108,7 @@ table {
 
 #rowthree {
   grid-area: rowthree;
-  display: grid;
   grid-template-areas: "boxseven boxeight boxnine";
-  grid-template-columns: 50px 50px 50px;
-  grid-template-rows: 50px;
 }
 
 #7 {
@@ -121,8 +123,57 @@ table {
   grid-area: boxnine;
 }
 
-#playernames {
+#player-headers {
+display: grid;
+grid-template-areas: "x-player o-player"
+}
+
+.player-name-headers {
+  display: inline;
+  text-align: center;
+  border: 2px solid black;
+}
+
+#enter-your-players {
+  text-align: center;
+}
+
+#p1-name-header {
+  grid-area: 'x-player';
+}
+
+#p2-name-header {
+  grid-area: 'o-player';
+}
+
+
+#player-name-entry {
   margin-top: 20px;
+}
+
+#enter-players {
+  display: grid;
+  grid-template-areas: 'x-player-input' 'o-player-input' 'board-size-input';
+  grid-template-columns: auto auto auto;
+
+}
+
+#p1 {
+  grid-area: 'x-player-input';
+}
+
+#p2 {
+  grid-area: 'o-player-input';
+}
+
+#board-size {
+  grid-area: 'board-size-input';
+}
+
+
+
+.player-name-tally {
+  display: inline;
 }
 
 /* .outerbox{

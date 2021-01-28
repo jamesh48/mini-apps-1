@@ -1,11 +1,8 @@
 module.exports.generateCSVReport = (json) => {
   console.log('csv report generating');
   var lineOne = Object.keys(json).join(', ');
-
-
   var resultStr = helperFunction(json, '').slice(0, -1);
   let result = `${lineOne} \n ${resultStr}`;
-
   return result;
 }
 

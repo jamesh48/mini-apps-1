@@ -1,16 +1,23 @@
-
 <!DOCTYPE html>
 <html lang='en'>
+
   <head>
     <meta charset="UTF-8">
-    <script src='app.js'></script>
-    <title>CSV Report Generator</title>
+    <script src="../node_modules/requirejs/require.js"></script>
+    <script src='./stringifiedhtml.js'></script>
+    <script src='./app.js'></script>
 
+    <title>CSV Report Generator</title>
   </head>
-  <body onload='addEventListeners()'>
-    <form id='submit-form'>
-      <textarea id ="csv-text-area" name='csv-text-area'></textarea>
-      <button type='submit'></button>
+  <body onload='
+  addEventListeners();
+  stringifyHTML();
+  '>
+    <form id='submit-form' name='cool-form'>
+      <textarea rows='40' cols='60' id ="csv-text-area" name='csv-text-area'></textarea>
+      <textarea id='test' name='stringifiedHTML' hidden></textarea>
+      <button type='submit'>Submit JSON</button>
+
     </form>
   </body>
 </html>

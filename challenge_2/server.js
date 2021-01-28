@@ -2,10 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const generateCsvReport = require('./generateCsvReport').generateCSVReport;
-
 const port = 3000;
-
-// app.use(bodyParser.urlencoded({extended: false}));
+// const stringifiedHTML = require('./dist/stringifiedhtml.js').test;
 
 app.get('/', (req, res) => {
   res.send('Hello World');
@@ -17,13 +15,7 @@ app.post('/', bodyParser.urlencoded({extended: true}), (req, res) => {
   response = response.split('\n').map((entry, index) => {
     return index === 0 ? `<h4>${entry}</h4>` : `<p>${entry}</p>`;
   }).join('');
-
-  response += (
-`<form method='POST' action ='http://localhost:3000'; id='submit-form'>
-  <textarea id ="csv-text-area" name='csv-text-area'></textarea>
-  <button type='submit'>Submit JSON</button>
-</form>`);
-
+  response += (req.body['stringifiedHTML']);
   res.status(200).send(response);
 })
 

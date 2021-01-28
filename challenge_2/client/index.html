@@ -10,14 +10,23 @@
     <title>CSV Report Generator</title>
   </head>
   <body onload='
-  addEventListeners();
-  stringifyHTML();
+  // addEventListeners();
+  // stringifyHTML();
   '>
-    <form id='submit-form' name='cool-form'>
+    <form id='submit-form' action="http://localhost:3000/" method="POST">
       <textarea rows='40' cols='60' id ="csv-text-area" name='csv-text-area'></textarea>
-      <textarea id='test' name='stringifiedHTML' hidden></textarea>
+      <textarea id='hiddenHTML' name='original-form' hidden></textarea>
       <button type='submit'>Submit JSON</button>
-
+      <script>
+        const stringifiedHTML = document.getElementsByTagName('form')[0].outerHTML;
+        console.log(stringifiedHTML);
+        document.getElementById('hiddenHTML').innerHTML = stringifiedHTML;
+      </script>
     </form>
   </body>
+
+
+
+
+
 </html>

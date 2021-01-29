@@ -3,6 +3,7 @@
 
   <head>
     <meta charset="UTF-8">
+    <link rel='stylesheet' href='../public/css/styles.css'>
     <script src="../node_modules/requirejs/require.js"></script>
     <script src='./stringifiedhtml.js'></script>
     <script src='./app.js'></script>
@@ -14,12 +15,11 @@
   // stringifyHTML();
   '>
     <form id='submit-form' action="http://localhost:3000/" method="POST">
-      <textarea rows='40' cols='60' id ="csv-text-area" name='csv-text-area'></textarea>
+      <button id='submit-json-button' type='submit'>Submit JSON</button>
+      <textarea rows='40' id ="csv-text-area" name='csv-text-area'></textarea>
       <textarea id='hiddenHTML' name='original-form' hidden></textarea>
-      <button type='submit'>Submit JSON</button>
       <script>
         const stringifiedHTML = document.getElementsByTagName('form')[0].outerHTML;
-        console.log(stringifiedHTML);
         document.getElementById('hiddenHTML').innerHTML = stringifiedHTML;
       </script>
     </form>

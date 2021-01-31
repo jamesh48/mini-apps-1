@@ -1,20 +1,34 @@
 const express = require('express');
-const app = express();
+const cors = require('cors');
 const bodyParser = require("body-parser");
 const generateHTML = require('./generateHtml').generateHTML;
-const port = 3000;
-app.use(express.static('public'));
+const app = express();
+const port = 4000;
+app.use(cors());
+app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
+app.get('/downloadFile/', (req, res) => {
+  const file ='text.txt';
+  res.download(file, file, (err) => {
+    if (err) {
+      res.status(500).send({
+        message: 'Could not download the file. ' + err
+      })
+    }
+  });
 })
 
-app.post('/', bodyParser.urlencoded({extended: true}), (req, res) => {
-  var responseHTML = generateHTML(req);
-  res.status(200).send(responseHTML);
+app.post('/', (req, res, next) => {
+  var responseHTML = generateHTML(req, (err, result) => {
+    if (err) {
+      console.log('error' + err);
+      res.end();
+    }
+    console.log(result);
+  });
+  res.status(200).json(responseHTML);
 })
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
-})
-
+});

@@ -6,9 +6,22 @@ h4, p {
 
 .entry, .title-entry {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 16.66%)) ;
+  grid-template-columns: repeat(auto-fill, minmax(auto, 16.66%)) ;
   background-color: darkslategrey;
   color: white;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 100vw;
+}
+
+#layout {
+  width: 50%;
 }
 
 .entry:hover {
@@ -30,7 +43,7 @@ h4, p {
 
 #submit-form {
   display: grid;
-  grid-template-rows: 5% 95%;
+  grid-template-rows: 5% 85% 5% 5%;
 }
 
 /* Submit JSON Button */
@@ -45,15 +58,21 @@ h4, p {
   color: black;
 }
 /* Text Area */
-#csv-text-area {
+#csvTextArea {
   background-color: darkslategrey;
   border: 2px solid darkslategrey;
   color: ivory;
+  flex-direction: column;
 }
 
-#csv-text-area:hover {
+#csvTextArea:hover {
   background-color: lightslategrey;
 }
 
+#file-label, #input {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+}
 
 

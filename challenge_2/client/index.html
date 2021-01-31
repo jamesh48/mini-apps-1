@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang='en'>
 
-  <head>
-    <meta charset="UTF-8">
-    <link rel='stylesheet' href='../public/css/styles.css'>
-    <script src="../node_modules/requirejs/require.js"></script>
-    <script src='./stringifiedhtml.js'></script>
-    <script src='./app.js'></script>
+<head>
+  <meta charset="UTF-8">
+  <link rel='stylesheet' href='../public/css/styles.css'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="../node_modules/requirejs/require.js"></script>
+  <script src='./stringifiedhtml.js'></script>
+  <script src='./app.js'></script>
+  <title>CSV Report Generator</title>
+</head>
 
-    <title>CSV Report Generator</title>
-  </head>
-  <body onload='
-  // addEventListeners();
-  // stringifyHTML();
+<body id='body' onload='
+  addEventListeners();
   '>
-    <form id='submit-form' action="http://localhost:3000/" method="POST">
+  <div id='layout'>
+    <form id='submit-form'>
       <button id='submit-json-button' type='submit'>Submit JSON</button>
-      <textarea rows='40' id ="csv-text-area" name='csv-text-area'></textarea>
-      <textarea id='hiddenHTML' name='original-form' hidden></textarea>
-      <script>
-        const stringifiedHTML = document.getElementsByTagName('form')[0].outerHTML;
-        document.getElementById('hiddenHTML').innerHTML = stringifiedHTML;
-      </script>
+      <textarea rows='40' id="csvTextArea"></textarea>
+      <textarea id='hiddenHTML' hidden></textarea>
+      <label id='file-label' for="file">Choose file to upload</label>
+      <input id='input' type='file'></input>
     </form>
-  </body>
-
-
-
-
-
+  </div>
+  <div id='spandl'>
+    <a id='dl' href=''>Download Latest CSV Report</a>
+  </div>
+</body>
 </html>

@@ -1,0 +1,31 @@
+{
+  "name": "challenge_3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "@babel/preset-env": "^7.12.16",
+    "axios": "^0.21.1",
+    "babel-plugin-transform-es2015-modules-amd": "^6.24.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "requirejs": "^2.3.6",
+    "webpack": "^5.22.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.16",
+    "@babel/core": "^7.12.16",
+    "@babel/preset-react": "^7.12.13",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server/server.js",
+    "build": "babel ./client/src --watch -d ./client/dist --presets=@babel/preset-env"
+  },
+  "author": "James Hrivnak",
+  "license": "ISC"
+}

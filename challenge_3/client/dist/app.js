@@ -34,9 +34,31 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.formOneSubmission = _this.formOneSubmission.bind(_assertThisInitialized(_this));
+    _this.formTwoSubmission = _this.formTwoSubmission.bind(_assertThisInitialized(_this));
+    _this.formThreeSubmission = _this.formThreeSubmission.bind(_assertThisInitialized(_this));
+    _this.formFourSubmission = _this.formFourSubmission.bind(_assertThisInitialized(_this));
     _this.state = {
-      pageDisplayed: 0
+      updatingId: 0,
+      pageDisplayed: 0,
+      // Login
+      loginName: 'James Hrivnak',
+      loginEmail: 'jameshrivnak4@gmail.com',
+      loginPassword: 'CloudlessSky82',
+      // Address
+      addressOne: '4959 Clubhouse Court',
+      addressTwo: 'test',
+      addressCity: 'Boulder',
+      addressState: 'CO',
+      addressZip: '80301',
+      addressPhone: '303-517-2085',
+      // Billing
+      billingZip: '80301',
+      billingCVV: '850',
+      billingCC: '1234567898765432',
+      // Purchased
+      purchased: false
     };
     return _this;
   }
@@ -46,21 +68,131 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function handleClick(incomingPage) {
       var _this2 = this;
 
+      console.log(incomingPage);
       this.setState({
         pageDisplayed: incomingPage
       }, function () {
-        _this2.formOneSubmission();
+        if (incomingPage === 2) {
+          _this2.formOneSubmission();
+        } else if (incomingPage === 3) {
+          _this2.formTwoSubmission();
+        } else if (incomingPage === 4) {
+          _this2.formThreeSubmission();
+        } else if (incomingPage === 5) {
+          _this2.formFourSubmission();
+        }
+      });
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(event) {
+      var _this3 = this;
+
+      console.log(event.target.id, event.target.value);
+      var incomingInputName = event.target.id;
+      var incomingValue = event.target.value;
+      console.log(incomingInputName, incomingValue);
+      var update = new Object();
+      update[incomingInputName] = incomingValue;
+      this.setState(function (prevState) {
+        return update;
+      }, function () {
+        console.log(_this3.state);
       });
     }
   }, {
     key: "formOneSubmission",
     value: function formOneSubmission() {
+      var _this4 = this;
+
+      var username = this.state.loginName;
+      var password = this.state.loginPassword;
+      var email = this.state.loginEmail;
       var config = {
-        'url': "http://localhost:3000/form",
-        'method': 'POST'
+        'url': "http://localhost:3000/new",
+        'method': 'POST',
+        data: {
+          username: username,
+          password: password,
+          email: email
+        }
+      };
+      return axios(config).then(function (results) {
+        _this4.setState({
+          updatingId: results.data.id
+        });
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "formTwoSubmission",
+    value: function formTwoSubmission() {
+      var _this$state = this.state,
+          addressOne = _this$state.addressOne,
+          addressTwo = _this$state.addressTwo,
+          addressCity = _this$state.addressCity,
+          addressState = _this$state.addressState,
+          addressZip = _this$state.addressZip,
+          addressPhone = _this$state.addressPhone,
+          updatingId = _this$state.updatingId;
+      var config = {
+        'url': "http://localhost:3000/updateAddress",
+        'method': 'POST',
+        data: {
+          addressOne: addressOne,
+          addressTwo: addressTwo,
+          addressCity: addressCity,
+          addressState: addressState,
+          addressZip: addressZip,
+          addressPhone: addressPhone,
+          updatingId: updatingId
+        }
       };
       return axios(config).then(function (results) {
         console.log(results.data);
+      });
+    }
+  }, {
+    key: "formThreeSubmission",
+    value: function formThreeSubmission() {
+      var _this$state2 = this.state,
+          billingCC = _this$state2.billingCC,
+          billingCVV = _this$state2.billingCVV,
+          billingZip = _this$state2.billingZip,
+          updatingId = _this$state2.updatingId;
+      var config = {
+        'url': "http://localhost:3000/updateBilling",
+        'method': 'POST',
+        data: {
+          billingCC: billingCC,
+          billingCVV: billingCVV,
+          billingZip: billingZip,
+          updatingId: updatingId
+        }
+      };
+      return axios(config).then(function (results) {
+        console.log(results);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "formFourSubmission",
+    value: function formFourSubmission() {
+      var _this$state3 = this.state,
+          purchased = _this$state3.purchased,
+          updatingId = _this$state3.updatingId;
+      var config = {
+        'url': "http://localhost:3000/completePurchase",
+        'method': 'POST',
+        data: {
+          purchased: true,
+          updatingId: updatingId
+        }
+      };
+      return axios(config).then(function (results) {
+        console.log(results);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -68,22 +200,30 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var pageDisplayed = this.state.pageDisplayed;
-      var handleClick = this.handleClick;
+      var _this$state4 = this.state,
+          pageDisplayed = _this$state4.pageDisplayed,
+          name = _this$state4.name;
+      var handleClick = this.handleClick,
+          handleChange = this.handleChange;
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Button, {
         pageDisplayed: pageDisplayed,
         handleClick: handleClick
       }), /*#__PURE__*/React.createElement(FormOne, {
+        handleChange: handleChange,
         pageDisplayed: pageDisplayed,
         handleClick: handleClick
       }), /*#__PURE__*/React.createElement(FormTwo, {
         pageDisplayed: pageDisplayed,
+        handleChange: handleChange,
         handleClick: handleClick
       }), /*#__PURE__*/React.createElement(FormThree, {
         pageDisplayed: pageDisplayed,
+        handleChange: handleChange,
         handleClick: handleClick
       }), /*#__PURE__*/React.createElement(ConfirmationPage, {
+        all: this.state,
         pageDisplayed: pageDisplayed,
+        handleChange: handleChange,
         handleClick: handleClick
       }));
     }
@@ -109,23 +249,38 @@ var FormOne = function FormOne(props) {
   }, /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     type: "text",
-    placeholder: "name"
+    placeholder: "name",
+    id: "loginName",
+    onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     type: "text",
-    placeholder: "e-mail"
+    placeholder: "e-mail",
+    id: "loginEmail",
+    onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    id: "loginPassword",
     type: "text",
-    placeholder: "password"
+    placeholder: "password",
+    onChange: props.handleChange
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "form-buttons"
+  }, /*#__PURE__*/React.createElement("input", {
+    className: "form-button",
+    type: "button",
+    value: "Back",
+    onClick: function onClick() {
+      props.handleClick(0);
+    }
   }), /*#__PURE__*/React.createElement("input", {
-    className: "form-input",
+    className: "form-button",
     type: "button",
     onClick: function onClick() {
       props.handleClick(2);
     },
     value: "Next"
-  }))) : null;
+  })))) : null;
 };
 
 var FormTwo = function FormTwo(props) {
@@ -134,34 +289,54 @@ var FormTwo = function FormTwo(props) {
   }, /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     type: "text",
-    placeholder: "line one"
+    placeholder: "line one",
+    id: "addressOne",
+    onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     type: "text",
-    placeholder: "line two"
+    placeholder: "line two",
+    id: "addressTwo",
+    onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     type: "text",
-    placeholder: "City"
+    placeholder: "City",
+    id: "addressCity",
+    onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     type: "text",
-    placeholder: "State"
+    placeholder: "State",
+    id: "addressState",
+    onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     type: "text",
-    placeholder: "Zip Code"
+    placeholder: "Zip Code",
+    id: "addressZip",
+    onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     type: "text",
-    placeholder: "Phone Number"
-  }), /*#__PURE__*/React.createElement("input", {
+    placeholder: "Phone Number",
+    id: "addressPhone",
+    onChange: props.handleChange
+  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
+    className: "form-button",
     type: "button",
+    value: "Back",
+    onClick: function onClick() {
+      props.handleClick(1);
+    }
+  }), /*#__PURE__*/React.createElement("input", {
+    className: "form-button",
+    type: "button",
+    value: "Next",
     onClick: function onClick() {
       props.handleClick(3);
-    },
-    value: "Next"
-  }))) : null;
+    }
+  })))) : null;
 };
 
 var FormThree = function FormThree(props) {
@@ -170,26 +345,70 @@ var FormThree = function FormThree(props) {
   }, /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     type: "text",
-    placeholder: "CC#"
+    placeholder: "CC#",
+    id: "billingCC",
+    onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     type: "text",
-    placeholder: "CVV"
+    placeholder: "CVV",
+    id: "billingCVV",
+    onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     type: "text",
-    placeholder: "Billing Zip Code"
+    placeholder: "Billing Zip Code",
+    id: "billingZip",
+    onChange: props.handleChange
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "form-buttons"
+  }, /*#__PURE__*/React.createElement("input", {
+    className: "form-button",
+    type: "button",
+    value: "Back",
+    onClick: function onClick() {
+      props.handleClick(2);
+    }
   }), /*#__PURE__*/React.createElement("input", {
+    className: "form-button",
     type: "button",
     value: "Next",
     onClick: function onClick() {
       props.handleClick(4);
     }
-  }))) : null;
+  })))) : null;
 };
 
 var ConfirmationPage = function ConfirmationPage(props) {
-  return props.pageDisplayed === 4 ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "Confirmation!")) : null;
+  return props.pageDisplayed === 4 ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "Confirmation!"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "User"), /*#__PURE__*/React.createElement("div", {
+    className: "confirmation-details"
+  }, /*#__PURE__*/React.createElement("p", null, props.all.loginName), /*#__PURE__*/React.createElement("p", null, props.all.loginEmail), /*#__PURE__*/React.createElement("p", null, props.all.loginPassword))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Address"), /*#__PURE__*/React.createElement("div", {
+    className: "confirmation-details"
+  }, /*#__PURE__*/React.createElement("p", null, props.all.addressOne), /*#__PURE__*/React.createElement("p", null, props.all.addressTwo), /*#__PURE__*/React.createElement("p", null, props.all.addressCity), /*#__PURE__*/React.createElement("p", null, props.all.addressState), /*#__PURE__*/React.createElement("p", null, props.all.addressZip), /*#__PURE__*/React.createElement("p", null, props.all.addressPhone))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Payment Details"), /*#__PURE__*/React.createElement("div", {
+    className: "confirmation-details cc-details"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "inline-details"
+  }, /*#__PURE__*/React.createElement("h5", null, "CC Number: "), /*#__PURE__*/React.createElement("p", null, props.all.billingCC.replace(/[0-9]/g, function (match, index, originalString) {
+    return index < 12 ? '*' : match;
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "inline-details"
+  }, /*#__PURE__*/React.createElement("h5", null, "CVV: "), /*#__PURE__*/React.createElement("p", null, props.all.billingCVV), /*#__PURE__*/React.createElement("h5", null, "Billing Zip: "), /*#__PURE__*/React.createElement("p", null, props.all.billingZip)))), /*#__PURE__*/React.createElement("div", {
+    className: "form-buttons"
+  }, /*#__PURE__*/React.createElement("input", {
+    className: "form-button",
+    type: "button",
+    value: "Back",
+    onClick: function onClick() {
+      props.handleClick(3);
+    }
+  }), /*#__PURE__*/React.createElement("input", {
+    className: "form-button",
+    type: "button",
+    value: "Complete Purchase",
+    onClick: function onClick() {
+      props.handleClick(5);
+    }
+  }))) : null;
 };
 
 var domContainer = document.querySelector('#root');

@@ -9,9 +9,13 @@
     "babel-plugin-transform-es2015-modules-amd": "^6.24.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "requirejs": "^2.3.6",
+    "sequelize": "^6.5.0",
+    "sequelize-cli": "^6.2.0",
     "webpack": "^5.22.0"
   },
   "devDependencies": {
@@ -24,7 +28,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./server/server.js",
-    "build": "babel ./client/src --watch -d ./client/dist --presets=@babel/preset-env"
+    "build": "babel ./client/src --watch -d ./client/dist --presets=@babel/preset-env",
+    "drop": "npx sequelize db:drop"
   },
   "author": "James Hrivnak",
   "license": "ISC"

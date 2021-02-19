@@ -130,15 +130,15 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       };
       return axios(config).then(function (results) {
-        // Mongo/Mongoose
-        console.log("here-> " + results.data);
+        // // Mongo/Mongoose
+        // console.log(`here-> ` + results.data)
+        // this.setState({updatingId: results.data});
+        // mySql/Sequelize
+        console.log("here-> " + results.data.insertId);
 
         _this4.setState({
-          updatingId: results.data
-        }); // mySql/Sequelize
-        // console.log(`here-> ` + results.data.insertId)
-        // this.setState({ updatingId: results.data.insertId })
-
+          updatingId: results.data.insertId
+        });
       })["catch"](function (err) {
         console.log(err);
       });

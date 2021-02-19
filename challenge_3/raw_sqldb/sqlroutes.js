@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('mysql2')
-const access = require('./controllers/index.js');
+const path = require('path');
+const access = require(path.resolve(__dirname + '/controllers/rawsql_controllers.js'));
 
 
 router.post('/new', (req, res, next) => {

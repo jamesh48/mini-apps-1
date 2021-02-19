@@ -3,8 +3,8 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 // const router = require('./routes.js');
-// const router = require('./sqlroutes.js');
-const router = require('../mongo_database/mongo_routes.js');
+const router = require('../raw_sqldb/sqlroutes.js');
+// const router = require('../mongo_database/mongo_routes.js');
 
 
 const port = 3000;

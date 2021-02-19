@@ -1,4 +1,6 @@
-const db = require('../../sql_database/database.js');
+const path = require('path');
+// const db = require(path.resolve(__dirname + '/rawsql_db.js'));
+const db = require('../rawsql_db.js');
 
 const access = {
   insert: async (userInfo, cb) => {
@@ -14,7 +16,13 @@ const access = {
   },
   updateTransaction: async (userAddressInfo, cb) => {
     const { addressOne, addressTwo, addressCity, addressState, addressZip, addressPhone, updatingId } = userAddressInfo;
-
+    console.log(addressOne);
+    console.log(addressTwo)
+    console.log(addressCity);
+    console.log(addressState)
+    console.log(addressZip)
+    console.log(addressPhone)
+    console.log(updatingId)
     try {
       const result = await db.queryAsync(
         `UPDATE transactions SET addressOne = "${addressOne}", addressTwo = "${addressTwo}", addressCity="${addressCity}", addressState="${addressState}", addressZip="${addressZip}", addressPhone="${addressPhone}" WHERE id = ${updatingId};`)

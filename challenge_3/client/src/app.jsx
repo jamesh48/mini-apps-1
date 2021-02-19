@@ -92,8 +92,12 @@ class App extends React.Component {
 
     return axios(config)
       .then((results) => {
-        console.log(`here-> ` + results.data.insertId)
-        this.setState({ updatingId: results.data.insertId })
+        // Mongo/Mongoose
+        console.log(`here-> ` + results.data)
+        this.setState({updatingId: results.data});
+        // mySql/Sequelize
+        // console.log(`here-> ` + results.data.insertId)
+        // this.setState({ updatingId: results.data.insertId })
       })
       .catch((err) => {
         console.log(err);

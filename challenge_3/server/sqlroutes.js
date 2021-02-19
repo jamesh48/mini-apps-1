@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const util = require("util")
-const { promisify } = require('util');
 const connection = require('mysql2')
 const access = require('./controllers/index.js');
 

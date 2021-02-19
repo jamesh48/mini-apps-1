@@ -32,7 +32,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./server/server.js",
     "build": "babel ./client/src --watch -d ./client/dist --presets=@babel/preset-env",
-    "drop": "npx sequelize db:drop"
+    "drop": "npx sequelize db:drop",
+    "migrate": "npx sequelize db:migrate"
   },
   "author": "James Hrivnak",
   "license": "ISC"

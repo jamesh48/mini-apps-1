@@ -2,9 +2,14 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cors = require('cors');
-// const router = require('./routes.js');
-const router = require('../raw_sqldb/sqlroutes.js');
-// const router = require('../mongo_database/mongo_routes.js');
+
+// Pick your poison :) (must change app.jsx to receive correct updating id as well);
+// Sequelize
+const router = require(`../sequelize_db/routes.js`);
+// Raw Sql
+// const router = require('../raw_sqldb/sqlroutes.js');
+// Mongo/Mongoose
+// const router = require('../mongo_db/mongo_routes.js');
 
 
 const port = 3000;

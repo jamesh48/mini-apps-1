@@ -2,21 +2,21 @@
   "development": {
     "username": "root",
     "password": "CloudlessSky82",
-    "database": "transactions",
+    "database": "Transactions",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": "CloudlessSky82",
-    "database": "transactions",
+    "database": "Transactions",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": "CloudlessSky82",
-    "database": "transactions",
+    "database": "Transactions",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }

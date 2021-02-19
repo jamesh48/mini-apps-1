@@ -95,9 +95,12 @@ class App extends React.Component {
         // // Mongo/Mongoose
         // console.log(`here-> ` + results.data)
         // this.setState({updatingId: results.data});
-        // mySql/Sequelize
-        console.log(`here-> ` + results.data.insertId)
-        this.setState({ updatingId: results.data.insertId })
+        // mySql raw
+        // console.log(`here-> ` + results.data.insertId)
+        // this.setState({ updatingId: results.data.insertId })
+        // Sequelize
+        console.log(`here-> ` + results.data.id);
+        this.setState({ updatingId: results.data.id });
       })
       .catch((err) => {
         console.log(err);

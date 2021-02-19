@@ -133,11 +133,14 @@ var App = /*#__PURE__*/function (_React$Component) {
         // // Mongo/Mongoose
         // console.log(`here-> ` + results.data)
         // this.setState({updatingId: results.data});
-        // mySql/Sequelize
-        console.log("here-> " + results.data.insertId);
+        // mySql raw
+        // console.log(`here-> ` + results.data.insertId)
+        // this.setState({ updatingId: results.data.insertId })
+        // Sequelize
+        console.log("here-> " + results.data.id);
 
         _this4.setState({
-          updatingId: results.data.insertId
+          updatingId: results.data.id
         });
       })["catch"](function (err) {
         console.log(err);

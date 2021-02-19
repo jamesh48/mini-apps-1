@@ -1,100 +1,76 @@
 const db = require('../../sql_database/database.js');
 
 const access = {
-  insert: (userInfo, cb) => {
+  insert: async (userInfo, cb) => {
     const username = userInfo.username;
     const password = userInfo.password;
     const email = userInfo.email;
-    db.query(`INSERT INTO Transactions (username, email, password) VALUES ("${username}", "${email}", "${password}");`, (err, results, fields) => {
-      if (err) {
-        cb(err);
-      } else {
-        cb(null, results);
-      }
-    })
+    try {
+      const result = await db.queryAsync(`INSERT INTO Transactions (username, email, password) VALUES ("${username}", "${email}", "${password}");`)
+      cb(null, result);
+    } catch (err) {
+      cb(err)
+    }
   },
-  updateTransaction: (userAddressInfo, cb) => {
+  updateTransaction: async (userAddressInfo, cb) => {
     const { addressOne, addressTwo, addressCity, addressState, addressZip, addressPhone, updatingId } = userAddressInfo;
-    console.log(addressTwo);
-    db.query(
-      `UPDATE transactions SET addressOne = "${addressOne}", addressTwo = "${addressTwo}", addressCity="${addressCity}", addressState="${addressState}", addressZip="${addressZip}", addressPhone="${addressPhone}" WHERE id = ${updatingId};`,
-      (err, results, fields) => {
-        if (err) {
-          cb(err)
-        } else {
-          cb(null, results);
-        }
-      });
+
+    try {
+      const result = await db.queryAsync(
+        `UPDATE transactions SET addressOne = "${addressOne}", addressTwo = "${addressTwo}", addressCity="${addressCity}", addressState="${addressState}", addressZip="${addressZip}", addressPhone="${addressPhone}" WHERE id = ${updatingId};`)
+      cb(null, result);
+    } catch (err) {
+      cb(err)
+    }
   },
-  updatePayment: (userPaymentInfo, cb) => {
+  updatePayment: async (userPaymentInfo, cb) => {
     const { billingCC, billingCVV, billingZip, updatingId } = userPaymentInfo;
-    db.query(
-      `UPDATE transactions SET billingCC="${billingCC}", billingCVV="${billingCVV}", billingZip=${billingZip} WHERE id = ${updatingId}`, (err, results, fields) => {
-        if (err) {
-          console.log(err);
-          cb(err);
-        } else {
-          cb(null, results);
-        }
-      })
+
+    try {
+      let results = await db.queryAsync(
+        `UPDATE transactions SET billingCC="${billingCC}", billingCVV="${billingCVV}", billingZip=${billingZip} WHERE id = ${updatingId}`)
+      cb(null, results);
+    } catch (err) {
+      cb(err)
+    }
   },
-  finalizePurchase: (purchaseInfo, cb) => {
+  finalizePurchase: async (purchaseInfo, cb) => {
     const { purchased, updatingId } = purchaseInfo;
-    db.query(`UPDATE transactions SET purchased = ${purchased} WHERE id = "${updatingId}"`, (err, results, fields) => {
-      if (err) {
-        console.log(err);
-        cb(err);
-      } else {
-        cb(null, results);
-      }
-    })
+    try {
+      const results = await db.queryAsync(`UPDATE transactions SET purchased = ${purchased} WHERE id = "${updatingId}"`);
+      cb(null, results);
+    } catch (err) {
+      cb(err)
+    }
   },
-  delete: (cb) => {
-    db.query(`DROP DATABASE IF EXISTS transactions`, (err, results) => {
-      if (err) {
-        console.log(err);
-        cb(err);
-      } else {
-        db.query(`CREATE DATABASE transactions;`, (err, results) => {
-          if (err) {
-            console.log(err);
-            cb(err);
-          } else {
-            db.query(`USE transactions`, (err, results) => {
-              if (err) {
-                console.log(err)
-                cb(err);
-              } else {
-                db.query(
-                  `CREATE TABLE transactions (
-                  id INTEGER NOT NULL AUTO_INCREMENT,
-                  username MEDIUMTEXT NOT NULL,
-                  email VARCHAR(100),
-                  password VARCHAR(100),
-                  addressOne VARCHAR(100),
-                  addressTwo VARCHAR(100),
-                  addressCity VARCHAR(100),
-                  addressState VARCHAR(100),
-                  addressZip VARCHAR(100),
-                  addressPhone VARCHAR(100),
-                  billingCC VARCHAR(100),
-                  billingCVV VARCHAR(100),
-                  billingZip VARCHAR(100),
-                  purchased BOOLEAN,
-                  PRIMARY KEY (id)
-                  );`, (err, results) => {
-                  if (err) {
-                    cb(err);
-                  } else {
-                    cb(null, 'reset');
-                  }
-                })
-              }
-            })
-          }
-        })
-      }
-    })
+  delete: async (cb) => {
+    try {
+      await db.queryAsync(`DROP DATABASE IF EXISTS transactions`)
+      await db.queryAsync(`CREATE DATABASE transactions;`)
+      await db.queryAsync(`USE transactions`)
+      await db.queryAsync(
+        `CREATE TABLE transactions (
+          id INTEGER NOT NULL AUTO_INCREMENT,
+          username MEDIUMTEXT NOT NULL,
+          email VARCHAR(100),
+          password VARCHAR(100),
+          addressOne VARCHAR(100),
+          addressTwo VARCHAR(100),
+          addressCity VARCHAR(100),
+          addressState VARCHAR(100),
+          addressZip VARCHAR(100),
+          addressPhone VARCHAR(100),
+          billingCC VARCHAR(100),
+          billingCVV VARCHAR(100),
+          billingZip VARCHAR(100),
+          purchased BOOLEAN,
+          PRIMARY KEY (id)
+          );`
+      )
+      cb(null, 'database reset');
+    } catch (err) {
+      cb(err);
+    }
   }
 }
 

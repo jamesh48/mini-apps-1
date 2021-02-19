@@ -8,6 +8,7 @@ class App extends React.Component {
     this.formTwoSubmission = this.formTwoSubmission.bind(this);
     this.formThreeSubmission = this.formThreeSubmission.bind(this);
     this.formFourSubmission = this.formFourSubmission.bind(this);
+    this.deleteDatabase = this.deleteDatabase.bind(this);
 
     this.state = {
       updatingId: 0,
@@ -30,6 +31,18 @@ class App extends React.Component {
       // Purchased
       purchased: false
     }
+  }
+
+  deleteDatabase() {
+    const config = {
+      method: 'POST',
+      url: 'http://localhost:3000/delete'
+    }
+
+    return axios(config)
+      .then((results) => {
+        console.log(results.data);
+      })
   }
 
   handleClick(incomingPage) {
@@ -79,7 +92,8 @@ class App extends React.Component {
 
     return axios(config)
       .then((results) => {
-        this.setState({ updatingId: results.data.id })
+        console.log(`here-> ` + results.data.insertId)
+        this.setState({ updatingId: results.data.insertId })
       })
       .catch((err) => {
         console.log(err);
@@ -151,7 +165,7 @@ class App extends React.Component {
   render() {
     const { pageDisplayed, name } = this.state;
 
-    const { handleClick, handleChange } = this;
+    const { handleClick, handleChange, deleteDatabase } = this;
     return (
       <div>
         <Button pageDisplayed={pageDisplayed} handleClick={handleClick} />
@@ -159,9 +173,18 @@ class App extends React.Component {
         <FormTwo pageDisplayed={pageDisplayed} handleChange={handleChange} handleClick={handleClick} />
         <FormThree pageDisplayed={pageDisplayed} handleChange={handleChange} handleClick={handleClick} />
         <ConfirmationPage all={this.state} pageDisplayed={pageDisplayed} handleChange={handleChange} handleClick={handleClick} />
+        <Delete delete={deleteDatabase} />
       </div>
     );
   }
+}
+
+const Delete = (props) => {
+  return (
+    <div>
+      <input type='button' value='reset database' onClick={props.delete} />
+    </div>
+  )
 }
 
 const Button = (props) => {

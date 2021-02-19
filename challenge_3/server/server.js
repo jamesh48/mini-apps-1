@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cors = require('cors');
-const router = require('./routes.js');
-// const authenticate = require('../database/authenticate.js')
+// const router = require('./routes.js');
+const router = require('./sqlroutes.js');
 
 
 const port = 3000;
@@ -16,8 +16,6 @@ app.use('/', (req, res, next) => {
   next();
 })
 
-// app.use('/', authenticate);
-// app.use('/', router);
 app.use('/', router);
 
 app.listen(port, () => {

@@ -39,6 +39,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.formTwoSubmission = _this.formTwoSubmission.bind(_assertThisInitialized(_this));
     _this.formThreeSubmission = _this.formThreeSubmission.bind(_assertThisInitialized(_this));
     _this.formFourSubmission = _this.formFourSubmission.bind(_assertThisInitialized(_this));
+    _this.deleteDatabase = _this.deleteDatabase.bind(_assertThisInitialized(_this));
     _this.state = {
       updatingId: 0,
       pageDisplayed: 0,
@@ -64,6 +65,17 @@ var App = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(App, [{
+    key: "deleteDatabase",
+    value: function deleteDatabase() {
+      var config = {
+        method: 'POST',
+        url: 'http://localhost:3000/delete'
+      };
+      return axios(config).then(function (results) {
+        console.log(results.data);
+      });
+    }
+  }, {
     key: "handleClick",
     value: function handleClick(incomingPage) {
       var _this2 = this;
@@ -118,8 +130,10 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       };
       return axios(config).then(function (results) {
+        console.log("here-> " + results.data.insertId);
+
         _this4.setState({
-          updatingId: results.data.id
+          updatingId: results.data.insertId
         });
       })["catch"](function (err) {
         console.log(err);
@@ -204,7 +218,8 @@ var App = /*#__PURE__*/function (_React$Component) {
           pageDisplayed = _this$state4.pageDisplayed,
           name = _this$state4.name;
       var handleClick = this.handleClick,
-          handleChange = this.handleChange;
+          handleChange = this.handleChange,
+          deleteDatabase = this.deleteDatabase;
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Button, {
         pageDisplayed: pageDisplayed,
         handleClick: handleClick
@@ -225,12 +240,22 @@ var App = /*#__PURE__*/function (_React$Component) {
         pageDisplayed: pageDisplayed,
         handleChange: handleChange,
         handleClick: handleClick
+      }), /*#__PURE__*/React.createElement(Delete, {
+        "delete": deleteDatabase
       }));
     }
   }]);
 
   return App;
 }(React.Component);
+
+var Delete = function Delete(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "reset database",
+    onClick: props["delete"]
+  }));
+};
 
 var Button = function Button(props) {
   return props.pageDisplayed === 0 ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {

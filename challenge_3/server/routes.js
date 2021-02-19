@@ -17,7 +17,6 @@ router.post('/new', async (req, res, next) => {
   const password = req.body.password;
   const email = req.body.email;
   let test = await newTransaction(username, email, password);
-  console.log(test);
   res.status(200).json(test)
 })
 
@@ -36,5 +35,3 @@ router.post('/completePurchase', async (req, res, next) => {
   const { purchased, updatingId } = req.body;
   var completed = await completePurchase(purchased);
 })
-
-module.exports = router;

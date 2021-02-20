@@ -1,9 +1,9 @@
 #board {
   display: grid;
-  grid-template-columns: 50px 50px 50px 50px;
-  grid-template-rows: 50px 50px 50px 50px;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px 50px 50px 50px;
   background-color: darkblue;
-  width: 200px;
+  width: 350px;
 }
 
 

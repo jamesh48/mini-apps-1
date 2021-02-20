@@ -8,6 +8,8 @@ class App extends React.Component {
     super(props)
     this.renderSquares = this.renderSquares.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.detectVerticalWin = this.detectVerticalWin.bind(this);
+    this.detectHorizontalWin = this.detectHorizontalWin.bind(this);
     this.state = {
       turn: 'red',
       board: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
@@ -57,8 +59,47 @@ class App extends React.Component {
           turn: incomingMove
         }
       }
+    }, () => {
+      let dVW = this.detectVerticalWin()
+      let dHW = this.detectHorizontalWin(i);
     });
   }
+
+  detectVerticalWin() {
+    for (let i = 1; i <= 16; i++) {
+      const token = this.state['t' + i];
+      const t2v = (this.state['t' + (i + 4)] === token);
+      const t3v = (this.state['t' + (i + 8)] === token);
+      const t4v = (this.state['t' + (i + 12)] === token);
+
+      if (token && t2v && t3v && t4v) {
+        console.log('vertical victory')
+        break;
+      }
+    }
+  }
+
+detectHorizontalWin(i) {
+  let column = (i % 4) || 4;
+  let rowStart = (i - column + 1)
+  const rowEnd = rowStart + 3;
+  console.log(rowEnd, rowStart)
+  for (let i = rowStart; i <= rowEnd; i++) {
+    const token = this.state['t' + i];
+    const t2h = (this.state['t' + (i + 1)] === token && (i + 1) <= rowEnd);
+    const t3h = (this.state['t' + (i + 2)] === token && (i + 2) <= rowEnd);
+    const t4h = (this.state['t' + (i + 3)] === token && (i + 3) <= rowEnd);
+    if (token && t2h && t3h && t4h) {
+      console.log(`horizontal victory!`)
+      break;
+    }
+  }
+}
+
+// 1,2,3,4 = 10
+// 2,3,4,5 = 14
+// 5,6,7,8 = 26
+
 
   render() {
     const { renderSquares, handleClick } = this;

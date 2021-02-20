@@ -9,14 +9,28 @@
 
 .square {
   text-align: center;
-  border:1px solid goldenrod;
+  border: 1px solid goldenrod;
   border-radius: 20px;
 }
 
 .black {
   background-color: red;
+  border: 1px solid goldenrod;
 }
 
 .red {
   background-color: yellow;
+  border: 1px solid goldenrod;
+}
+
+@keyframes drop {
+  from {bottom: 175px;}
+  to {bottom: 0px;}
+}
+
+.black, .red {
+  position: relative;
+  animation-name: drop;
+  animation-duration: 1s;
+  z-index: 0;
 }

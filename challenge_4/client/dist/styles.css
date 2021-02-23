@@ -13,24 +13,38 @@
   border-radius: 20px;
 }
 
-.black {
+.red {
   background-color: red;
   border: 1px solid goldenrod;
 }
 
-.red {
+.yellow {
   background-color: yellow;
   border: 1px solid goldenrod;
 }
 
+.white {
+  border: 1px solid goldenrod;
+}
+
 @keyframes drop {
-  from {bottom: 175px;}
+  from {bottom: 250px;}
   to {bottom: 0px;}
 }
 
-.black, .red {
+@keyframes highlight {
+  from {background-color: ivory;}
+  to {background-color: initial}
+}
+
+.white {
+  animation-name: highlight;
+  animation-duration: 1.5s;
+}
+
+.yellow, .red {
   position: relative;
   animation-name: drop;
-  animation-duration: 1s;
+  animation-duration: 1.0s;
   z-index: 0;
 }

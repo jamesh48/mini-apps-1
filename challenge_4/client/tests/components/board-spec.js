@@ -2,7 +2,7 @@ import 'jsdom-global/register';
 import React from 'react';
 import { expect } from 'chai';
 import { configure, mount, shallow } from 'enzyme';
-import App from '../../src/index.jsx';
+import App from '../../src/App.jsx';
 import Board from '../../src/components/board.jsx';
 import Square from '../../src/components/square.jsx';
 // import Adapter from 'enzyme-adapter-react-16';

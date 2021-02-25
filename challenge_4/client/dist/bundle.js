@@ -2,92 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./client/src/components/WinnerBanner.jsx":
-/*!************************************************!*\
-  !*** ./client/src/components/WinnerBanner.jsx ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-
-var WinnerBanner = function WinnerBanner(props) {
-  return props.winner === 'red' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    id: "annouce-winner"
-  }, "Red Wins!") : props.winner === 'yellow' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    id: "annouce-winner"
-  }, "Yellow Wins!") : props.winner === 'tie' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    id: "annouce-winner"
-  }, "It's a Tie!") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (WinnerBanner);
-
-/***/ }),
-
-/***/ "./client/src/components/board.jsx":
-/*!*****************************************!*\
-  !*** ./client/src/components/board.jsx ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-
-var Board = function Board(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    id: "board"
-  }, props.renderSquares());
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Board);
-
-/***/ }),
-
-/***/ "./client/src/components/square.jsx":
-/*!******************************************!*\
-  !*** ./client/src/components/square.jsx ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-
-var Square = function Square(props) {
-  var index = props.index,
-      handleClick = props.handleClick,
-      test = props.test; // console.log('x->' + props.['t' + index.toString()])
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: 'square ' + test,
-    id: index + 1,
-    "data-tile": index + 1,
-    "data-y": index % 7 + 1,
-    "data-x": Math.ceil((index + 1) / 7),
-    onClick: handleClick
-  });
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Square);
-
-/***/ }),
-
-/***/ "./client/src/index.jsx":
-/*!******************************!*\
-  !*** ./client/src/index.jsx ***!
-  \******************************/
+/***/ "./client/src/App.jsx":
+/*!****************************!*\
+  !*** ./client/src/App.jsx ***!
+  \****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -386,6 +304,88 @@ var App = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ }),
+
+/***/ "./client/src/components/WinnerBanner.jsx":
+/*!************************************************!*\
+  !*** ./client/src/components/WinnerBanner.jsx ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var WinnerBanner = function WinnerBanner(props) {
+  return props.winner === 'red' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    id: "annouce-winner"
+  }, "Red Wins!") : props.winner === 'yellow' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    id: "annouce-winner"
+  }, "Yellow Wins!") : props.winner === 'tie' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    id: "annouce-winner"
+  }, "It's a Tie!") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (WinnerBanner);
+
+/***/ }),
+
+/***/ "./client/src/components/board.jsx":
+/*!*****************************************!*\
+  !*** ./client/src/components/board.jsx ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var Board = function Board(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    id: "board"
+  }, props.renderSquares());
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Board);
+
+/***/ }),
+
+/***/ "./client/src/components/square.jsx":
+/*!******************************************!*\
+  !*** ./client/src/components/square.jsx ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var Square = function Square(props) {
+  var index = props.index,
+      handleClick = props.handleClick,
+      test = props.test; // console.log('x->' + props.['t' + index.toString()])
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: 'square ' + test,
+    id: index + 1,
+    "data-tile": index + 1,
+    "data-y": index % 7 + 1,
+    "data-x": Math.ceil((index + 1) / 7),
+    onClick: handleClick
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Square);
 
 /***/ }),
 
@@ -30456,11 +30456,11 @@ if (false) {} else {
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-/*!*******************************!*\
-  !*** ./client/src/export.jsx ***!
-  \*******************************/
+/*!******************************!*\
+  !*** ./client/src/index.jsx ***!
+  \******************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.jsx */ "./client/src/index.jsx");
+/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.jsx */ "./client/src/App.jsx");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 
@@ -30468,7 +30468,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Index = function Index() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_index_jsx__WEBPACK_IMPORTED_MODULE_0__.default, null));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_App_jsx__WEBPACK_IMPORTED_MODULE_0__.default, null));
 };
 
 react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Index, null), document.getElementById('root'));

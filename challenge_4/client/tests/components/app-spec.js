@@ -3,7 +3,7 @@ import React from 'react';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { configure, mount, shallow } from 'enzyme';
-import App from '../../src/index.jsx';
+import App from '../../src/App.jsx';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 

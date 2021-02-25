@@ -13,6 +13,7 @@ class App extends React.Component {
     this.detectHorizontalWin = this.detectHorizontalWin.bind(this);
     this.detectLeftDiagonalWin = this.detectLeftDiagonalWin.bind(this);
     this.detectRightDiagonalWin = this.detectRightDiagonalWin.bind(this);
+    this.detectTie = this.detectTie.bind(this);
 
     this.state = {
       turn: 'yellow',
@@ -121,6 +122,7 @@ class App extends React.Component {
       const dHW = this.detectHorizontalWin(i, turn);
       const dRDW = this.detectRightDiagonalWin(turn);
       const dLDW = this.detectLeftDiagonalWin(turn);
+      const tie = this.detectTie()
 
       this.setState(prevState => {
         // Clear state for all white tokens before next turn
@@ -129,7 +131,12 @@ class App extends React.Component {
             prevState[key] = '';
           }
         }
-        prevState.winner = (dVW || dHW || dRDW || dLDW) ? dVW || dHW || dRDW || dLDW : undefined;
+        prevState.winner =
+          (dVW || dHW || dRDW || dLDW) ?
+            dVW || dHW || dRDW || dLDW
+            : tie ? 'tie'
+              : undefined;
+
         return {
           prevState
         }
@@ -168,10 +175,15 @@ class App extends React.Component {
 
   detectRightDiagonalWin(turn) {
     for (let i = 1; i <= 42; i++) {
+      const yColumn = (i % 7) || 7
+      const y2Column = ((i + 8) % 7) || 7;
+      const y3Column = ((i + 16) % 7) || 7;
+      const y4Column = ((i + 24) % 7) || 7;
+
       const t1RD = this.state['t' + i] === turn;
-      const t2RD = (this.state['t' + (i + 8)] === turn);
-      const t3RD = (this.state['t' + (i + 16)] === turn);
-      const t4RD = (this.state['t' + (i + 24)] === turn);
+      const t2RD = (this.state['t' + (i + 8)] === turn && y2Column > yColumn);
+      const t3RD = (this.state['t' + (i + 16)] === turn && y3Column > y2Column);
+      const t4RD = (this.state['t' + (i + 24)] === turn && y4Column > y3Column);
 
       if (t1RD && t2RD && t3RD && t4RD) {
         return turn;
@@ -181,16 +193,29 @@ class App extends React.Component {
 
   detectLeftDiagonalWin(turn) {
     for (let i = 1; i <= 42; i++) {
-      // console.log(i)
+      const yColumn = (i % 7) || 7
+      const y2Column = ((i + 6) % 7) || 7;
+      const y3Column = ((i + 12) % 7) || 7;
+      const y4Column = ((i + 18) % 7) || 7;
+
       const t1LD = this.state['t' + i] === turn;
-      const t2LD = (this.state['t' + (i + 6)] === turn);
-      const t3LD = (this.state['t' + (i + 12)] === turn);
-      const t4LD = (this.state['t' + (i + 18)] === turn);
+      const t2LD = (this.state['t' + (i + 6)] === turn && y2Column < yColumn);
+      const t3LD = (this.state['t' + (i + 12)] === turn && y3Column < y2Column);
+      const t4LD = (this.state['t' + (i + 18)] === turn && y4Column < y3Column);
 
       if (t1LD && t2LD && t3LD && t4LD) {
         return turn;
       }
     }
+  }
+
+  detectTie() {
+    for (let i = 1; i <= 42; i++) {
+      if (this.state['t' + i] === '' || this.state['t' + i] === 'white') {
+        return false;
+      }
+    }
+    return true;
   }
 
   render() {
@@ -206,4 +231,4 @@ class App extends React.Component {
 
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export default App;

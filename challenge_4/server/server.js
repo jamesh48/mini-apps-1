@@ -3,6 +3,7 @@ const app = express();
 const router = require('./routes.js');
 
 app.use(express.static(__dirname + '/../client/dist'))
+
 app.use(express.json())
 app.use('/', router);
 

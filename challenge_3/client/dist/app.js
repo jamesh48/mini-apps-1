@@ -44,20 +44,20 @@ var App = /*#__PURE__*/function (_React$Component) {
       updatingId: 0,
       pageDisplayed: 0,
       // Login
-      loginName: 'James Hrivnak',
-      loginEmail: 'jameshrivnak4@gmail.com',
-      loginPassword: 'CloudlessSky82',
+      loginName: '',
+      loginEmail: '',
+      loginPassword: '',
       // Address
-      addressOne: '4959 Clubhouse Court',
-      addressTwo: 'test',
-      addressCity: 'Boulder',
-      addressState: 'CO',
-      addressZip: '80301',
-      addressPhone: '303-517-2085',
+      addressOne: '',
+      addressTwo: '',
+      addressCity: '',
+      addressState: '',
+      addressZip: '',
+      addressPhone: '',
       // Billing
-      billingZip: '80301',
-      billingCVV: '850',
-      billingCC: '1234567898765432',
+      billingZip: '',
+      billingCVV: '',
+      billingCC: '',
       // Purchased
       purchased: false
     };
@@ -78,29 +78,32 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleClick",
     value: function handleClick(incomingPage) {
-      var _this2 = this;
+      var status = true;
 
-      console.log(incomingPage);
-      this.setState({
-        pageDisplayed: incomingPage
-      }, function () {
-        if (incomingPage === 2) {
-          _this2.formOneSubmission();
-        } else if (incomingPage === 3) {
-          _this2.formTwoSubmission();
-        } else if (incomingPage === 4) {
-          _this2.formThreeSubmission();
-        } else if (incomingPage === 5) {
-          _this2.formFourSubmission();
-        }
-      });
+      if (incomingPage === 2) {
+        status = this.formOneSubmission();
+      } else if (incomingPage === 3) {
+        status = this.formTwoSubmission();
+      } else if (incomingPage === 4) {
+        status = this.formThreeSubmission();
+      } else if (incomingPage === 5) {
+        status = this.formFourSubmission();
+      }
+
+      if (!status) {
+        return;
+      } else {
+        this.setState({
+          pageDisplayed: incomingPage
+        });
+      }
     }
   }, {
     key: "handleChange",
     value: function handleChange(event) {
-      var _this3 = this;
+      var _this2 = this;
 
-      console.log(event.target.id, event.target.value);
+      // console.log(event.target.id, event.target.value)
       var incomingInputName = event.target.id;
       var incomingValue = event.target.value;
       console.log(incomingInputName, incomingValue);
@@ -109,17 +112,34 @@ var App = /*#__PURE__*/function (_React$Component) {
       this.setState(function (prevState) {
         return update;
       }, function () {
-        console.log(_this3.state);
+        console.log(_this2.state);
       });
     }
   }, {
     key: "formOneSubmission",
     value: function formOneSubmission() {
-      var _this4 = this;
+      var _this3 = this;
 
       var username = this.state.loginName;
       var password = this.state.loginPassword;
       var email = this.state.loginEmail;
+
+      if (username === '') {
+        alert('Missing Name');
+        return false;
+      }
+
+      if (password === '') {
+        alert('Missing Password');
+        return false;
+      }
+
+      if (email === '') {
+        alert('Missing Email');
+        return false;
+      }
+
+      console.log(username);
       var config = {
         'url': "http://localhost:3000/new",
         'method': 'POST',
@@ -134,14 +154,14 @@ var App = /*#__PURE__*/function (_React$Component) {
         // console.log(`here-> ` + results.data)
         // this.setState({updatingId: results.data});
         // mySql raw
-        // console.log(`here-> ` + results.data.insertId)
-        // this.setState({ updatingId: results.data.insertId })
-        // Sequelize
-        console.log("here-> " + results.data.id);
+        console.log("here-> " + results.data.insertId);
 
-        _this4.setState({
-          updatingId: results.data.id
-        });
+        _this3.setState({
+          updatingId: results.data.insertId
+        }); // Sequelize
+        // console.log(`here-> ` + results.data.id);
+        // this.setState({ updatingId: results.data.id });
+
       })["catch"](function (err) {
         console.log(err);
       });
@@ -157,6 +177,12 @@ var App = /*#__PURE__*/function (_React$Component) {
           addressZip = _this$state.addressZip,
           addressPhone = _this$state.addressPhone,
           updatingId = _this$state.updatingId;
+
+      if (addressOne === '' || addressCity === '' || addressState === '' || addressZip === '' || addressPhone === '') {
+        alert('Missing Fields');
+        return false;
+      }
+
       var config = {
         'url': "http://localhost:3000/updateAddress",
         'method': 'POST',
@@ -182,6 +208,12 @@ var App = /*#__PURE__*/function (_React$Component) {
           billingCVV = _this$state2.billingCVV,
           billingZip = _this$state2.billingZip,
           updatingId = _this$state2.updatingId;
+
+      if (billingCC === '' || billingCVV === '' || billingZip === '') {
+        alert('Missing Fields!');
+        return false;
+      }
+
       var config = {
         'url': "http://localhost:3000/updateBilling",
         'method': 'POST',
@@ -279,6 +311,7 @@ var FormOne = function FormOne(props) {
   return props.pageDisplayed === 1 ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Your Information:"), /*#__PURE__*/React.createElement("form", {
     className: "input-form"
   }, /*#__PURE__*/React.createElement("input", {
+    autocomplete: "off",
     className: "form-input",
     type: "text",
     placeholder: "name",
@@ -286,12 +319,14 @@ var FormOne = function FormOne(props) {
     onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    autocomplete: "off",
     type: "text",
     placeholder: "e-mail",
     id: "loginEmail",
     onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    autocomplete: "off",
     id: "loginPassword",
     type: "text",
     placeholder: "password",
@@ -320,36 +355,42 @@ var FormTwo = function FormTwo(props) {
     className: "input-form"
   }, /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    autocomplete: "off",
     type: "text",
     placeholder: "line one",
     id: "addressOne",
     onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    autocomplete: "off",
     type: "text",
     placeholder: "line two",
     id: "addressTwo",
     onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    autocomplete: "off",
     type: "text",
     placeholder: "City",
     id: "addressCity",
     onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    autocomplete: "off",
     type: "text",
     placeholder: "State",
     id: "addressState",
     onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    autocomplete: "off",
     type: "text",
     placeholder: "Zip Code",
     id: "addressZip",
     onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    autocomplete: "off",
     type: "text",
     placeholder: "Phone Number",
     id: "addressPhone",
@@ -376,18 +417,21 @@ var FormThree = function FormThree(props) {
     className: "input-form"
   }, /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    autocomplete: "off",
     type: "text",
     placeholder: "CC#",
     id: "billingCC",
     onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    autocomplete: "off",
     type: "text",
     placeholder: "CVV",
     id: "billingCVV",
     onChange: props.handleChange
   }), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
+    autocomplete: "off",
     type: "text",
     placeholder: "Billing Zip Code",
     id: "billingZip",
@@ -414,9 +458,9 @@ var FormThree = function FormThree(props) {
 var ConfirmationPage = function ConfirmationPage(props) {
   return props.pageDisplayed === 4 ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "Confirmation!"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "User"), /*#__PURE__*/React.createElement("div", {
     className: "confirmation-details"
-  }, /*#__PURE__*/React.createElement("p", null, props.all.loginName), /*#__PURE__*/React.createElement("p", null, props.all.loginEmail), /*#__PURE__*/React.createElement("p", null, props.all.loginPassword))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Address"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("p", null, "User: ", props.all.loginName), /*#__PURE__*/React.createElement("p", null, "Email: ", props.all.loginEmail), /*#__PURE__*/React.createElement("p", null, "Password: ", props.all.loginPassword))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Address"), /*#__PURE__*/React.createElement("div", {
     className: "confirmation-details"
-  }, /*#__PURE__*/React.createElement("p", null, props.all.addressOne), /*#__PURE__*/React.createElement("p", null, props.all.addressTwo), /*#__PURE__*/React.createElement("p", null, props.all.addressCity), /*#__PURE__*/React.createElement("p", null, props.all.addressState), /*#__PURE__*/React.createElement("p", null, props.all.addressZip), /*#__PURE__*/React.createElement("p", null, props.all.addressPhone))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Payment Details"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("p", null, "Line 1: ", props.all.addressOne), /*#__PURE__*/React.createElement("p", null, props.all.addressTwo), /*#__PURE__*/React.createElement("p", null, "City: ", props.all.addressCity), /*#__PURE__*/React.createElement("p", null, "State: ", props.all.addressState), /*#__PURE__*/React.createElement("p", null, "Zip: ", props.all.addressZip), /*#__PURE__*/React.createElement("p", null, "Phone: ", props.all.addressPhone))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Payment Details"), /*#__PURE__*/React.createElement("div", {
     className: "confirmation-details cc-details"
   }, /*#__PURE__*/React.createElement("div", {
     className: "inline-details"

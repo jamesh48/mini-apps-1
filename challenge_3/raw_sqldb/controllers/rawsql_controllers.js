@@ -16,13 +16,6 @@ const access = {
   },
   updateTransaction: async (userAddressInfo, cb) => {
     const { addressOne, addressTwo, addressCity, addressState, addressZip, addressPhone, updatingId } = userAddressInfo;
-    console.log(addressOne);
-    console.log(addressTwo)
-    console.log(addressCity);
-    console.log(addressState)
-    console.log(addressZip)
-    console.log(addressPhone)
-    console.log(updatingId)
     try {
       const result = await db.queryAsync(
         `UPDATE transactions SET addressOne = "${addressOne}", addressTwo = "${addressTwo}", addressCity="${addressCity}", addressState="${addressState}", addressZip="${addressZip}", addressPhone="${addressPhone}" WHERE id = ${updatingId};`)

@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
 module.exports = () => {
-  const sequelize = new Sequelize('transactions', "root", "CloudlessSky82", {
-    host: "localhost",
+  const sequelize = new Sequelize('transactions', "root", process.env.USERPASS, {
+    host: process.env.HOST,
     dialect: "mysql",
   });
 

@@ -71,6 +71,10 @@ const completePurchase = async (purchased) => {
   })
 }
 
+const delete = async () => {
+  
+}
+
 module.exports.newTransaction = newTransaction;
 module.exports.updateTransaction = updateTransaction;
 module.exports.updateBilling = updateBilling;

@@ -1,0 +1,40 @@
+{
+  "name": "challenge_3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "@babel/preset-env": "^7.12.16",
+    "axios": "^0.21.1",
+    "babel-plugin-transform-es2015-modules-amd": "^6.24.1",
+    "bluebird": "^3.7.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.4",
+    "mongoose": "^5.11.17",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "requirejs": "^2.3.6",
+    "sequelize": "^6.5.0",
+    "sequelize-cli": "^6.2.0",
+    "webpack": "^5.22.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.16",
+    "@babel/core": "^7.12.16",
+    "@babel/preset-react": "^7.12.13",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server/server.js",
+    "build": "babel ./client/src --watch -d ./client/dist --presets=@babel/preset-env",
+    "drop": "npx sequelize db:drop",
+    "migrate": "npx sequelize db:migrate"
+  },
+  "author": "James Hrivnak",
+  "license": "ISC"
+}

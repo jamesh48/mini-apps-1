@@ -1,0 +1,19 @@
+#line-graph-container {
+  width: 50%;
+  margin: auto;
+}
+
+#line-graph-chart {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-child {
+
+}
+.child {
+  display: flex;
+  justify-content: center;
+}

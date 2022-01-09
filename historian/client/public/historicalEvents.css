@@ -1,0 +1,139 @@
+#validated-title {
+  color: ivory;
+  background-color: darkslategrey;
+  padding: 5px;
+  -webkit-text-stroke: .4px olivedrab; /* width and color */
+  border-radius: 2px;
+}
+.historical-event-list {
+  list-style: none;
+  padding-left: 0;
+  border: 3px solid orange;
+}
+.inner-entry {
+  background-color: darkslategrey;
+  color: ivory;
+  padding: 5px;
+  padding-left: 15px;
+  border: 1px solid olivedrab;
+  border-left: none;
+  border-right:none;
+}
+
+.favorite-options-list {
+  list-style: none;
+  padding: 15px 5px;
+  border: 1px solid black;
+}
+
+.favorite-options-list-li {
+  display: inline-block;
+  padding: 5px;
+}
+
+.li-header {
+  text-decoration: underline;
+}
+
+.favorite-options-list-li > a {
+  text-decoration: none;
+}
+
+.favorite {
+  background-color: steelblue;
+  border: 1px solid greenyellow;
+}
+.pageNo {
+  border: 1px solid black;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.pageNo:hover {
+  background-color: darkslategrey;
+}
+
+.active, .active:hover {
+  background-color: darkslategrey;
+  color: ivory;
+}
+
+.pagination {
+  padding: 10px 10px;
+  background-color: lightslategray;
+  color: black;
+}
+
+.page-no-a {
+  padding: 5px 5px;
+  color: black;
+}
+
+.page-no-a:hover {
+  color: ivory;
+}
+
+.active-page-no-a {
+  padding: 5px 5px;
+  color: ivory;
+}
+
+.page-no-previous, .page-no-next, .breaker {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.page-no-previous:hover, .page-no-next:hover {
+  color: ivory;
+}
+
+.page-no-previous, .breaker {
+  padding-right: 5px;
+}
+
+.page-no-next, .break-me {
+  padding-left: 5px;
+}
+
+#editing-header {
+  text-decoration: underline;
+  padding-left: 15px;
+}
+
+.edit-text-area {
+  width: 95%;
+ position:relative;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+.edit-button {
+  left: 80%;
+}
+.update-cancel-buttons {
+  left: 87.5%;
+}
+
+.edit-button, .update-cancel-buttons {
+  position: relative;
+  bottom: 5px;
+}
+
+.favorite-set-select {
+  position: relative;
+  bottom: 5px;
+  left: 79%;
+  width: 150px;
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; */
+}
+
+.favorite-set-select > .already-favorited {
+  background-color: blue;
+}
+
+.already-favorited {
+  background-color: blue;
+}
+
+
